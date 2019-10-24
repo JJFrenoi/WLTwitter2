@@ -15,14 +15,16 @@ public class RetrieveTweetsAsyncTask extends AsyncTask<String, Void, List<Tweet>
 
     public RetrieveTweetsAsyncTask(TweetChangeListener mlistener) {
         this.mlistener = mlistener;
+
     }
 
     @Override
     protected List<Tweet> doInBackground(String... login) {
         if((null != login ) && (login.length >0)){
+            DataBaseHelper.getInstance().getTwitterDao().nukeTable();
             List<Tweet> tweets = TwitterHelper.getTweetsOfUser(login[0]);
             DataBaseHelper.getInstance().getTwitterDao().insertAll(tweets);
-            tweets = DataBaseHelper.getInstance().getTwitterDao().getTweetbyUser(login[0]);
+            tweets = DataBaseHelper.getInstance().getTwitterDao().getAll();
             return tweets;
         }
         return null;

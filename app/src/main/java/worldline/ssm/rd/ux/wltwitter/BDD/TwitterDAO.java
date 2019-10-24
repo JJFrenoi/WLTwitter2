@@ -14,7 +14,7 @@ import worldline.ssm.rd.ux.wltwitter.pojo.Tweet;
 public interface TwitterDAO {
     @Query("SELECT * from Tweet")
     public List<Tweet> getAll();
-    @Query( "SELECT * from Tweet WHERE name  LIKE :user ")
+    @Query("SELECT * from Tweet WHERE name  LIKE :user ")
     public List<Tweet> getTweetbyUser(String user);
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insertAll(List<Tweet> tweets);
@@ -22,4 +22,7 @@ public interface TwitterDAO {
     public void delete(Tweet tweet);
     @Update
     public void update(List<Tweet> tweets);
+    @Query("DELETE FROM Tweet")
+    public void nukeTable();
+
 }
